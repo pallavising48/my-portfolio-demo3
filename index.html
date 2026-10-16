@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #faf7f2;
+      --bg-card:   #f2ede5;
+      --fg:        #2c1810;
+      --muted:     #6b4c3b;
+      --accent:    #c2522d;
+      --accent-dk: #a0421f;
+      --border:    #d4cfc6;
+      --nav-h:     60px;
+
+      --serif: 'Lora', Georgia, serif;
+      --sans:  'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.75;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-h);
+      background: rgba(250, 247, 242, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 1.15rem;
+      text-decoration: none;
+      color: var(--fg);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--fg);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    /* mobile menu */
+    @media (max-width: 640px) {
+      nav { padding: 0 1.25rem; }
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        padding: 1.25rem 1.5rem;
+        gap: 1.25rem;
+      }
+
+      .nav-links.open { display: flex; }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      min-height: 100vh;
+      padding: calc(var(--nav-h) + 5rem) 2rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    section + section {
+      border-top: 1px solid var(--border);
+    }
+
+    section h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    section h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+    }
+
+    .placeholder {
+      color: var(--muted);
+      font-size: 1.0625rem;
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    /* ── HERO ── */
+    .hero-name {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    #hero h1 { margin-bottom: 1.5rem; }
+
+    .hero-intro {
+      font-size: 1.0625rem;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.375rem 1.1rem;
+      margin-bottom: 4rem;
+    }
+
+    .hero-badge::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #6abf69;
+      flex-shrink: 0;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 460px;
+    }
+
+    .stat-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 0.75rem;
+      background: var(--bg-card);
+      gap: 0.3rem;
+    }
+
+    .stat-number {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.35;
+    }
+
+    /* accent rule under section headings */
+    section h2::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 2px;
+      background: var(--accent);
+      margin-top: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#hero">Portfolio</a>
+    <button class="nav-toggle" aria-label="Toggle menu" id="menuBtn">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#best-work">Best Work</a></li>
+      <li><a href="#everything">Everything</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- 1. Hero -->
+  <section id="hero">
+    <p class="hero-name">[Your Name]</p>
+    <h1>[A bold headline that says exactly what you bring to the table]</h1>
+    <p class="hero-intro">[Two to three sentences about who you are, what you do best, and the kind of work that genuinely excites you. Write it like you'd introduce yourself to someone you respect — warm, direct, no buzzwords.]</p>
+    <span class="hero-badge">Open to new roles &nbsp;·&nbsp; [City, Country]</span>
+    <div class="hero-stats">
+      <div class="stat-tile">
+        <span class="stat-number">[#]</span>
+        <span class="stat-label">[Years of experience]</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-number">[#]</span>
+        <span class="stat-label">[Projects shipped]</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-number">[#]</span>
+        <span class="stat-label">[Your third metric]</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Best of My Work -->
+  <section id="best-work">
+    <h2>Best of My Work</h2>
+    <p class="placeholder">[Showcase 2–3 flagship projects here. Each will get a card with a screenshot, title, short description, and links.]</p>
+  </section>
+
+  <!-- 3. Everything I've Built -->
+  <section id="everything">
+    <h2>Everything I've Built</h2>
+    <p class="placeholder">[A fuller grid or list of projects — side projects, experiments, open-source contributions, etc.]</p>
+  </section>
+
+  <!-- 4. About -->
+  <section id="about">
+    <h2>About</h2>
+    <p class="placeholder">[A short bio: who you are, your background, what drives you. Photo goes here too.]</p>
+  </section>
+
+  <!-- 5. Skills -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <p class="placeholder">[Languages, frameworks, tools, and anything else worth highlighting. Could be tags, a list, or grouped categories.]</p>
+  </section>
+
+  <!-- 6. Contact -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <p class="placeholder">[How to reach you — email, LinkedIn, GitHub, a contact form, or all of the above.]</p>
+  </section>
+
+  <script>
+    const btn = document.getElementById('menuBtn');
+    const links = document.getElementById('navLinks');
+
+    btn.addEventListener('click', () => {
+      links.classList.toggle('open');
+    });
+
+    // close menu when a link is clicked
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => links.classList.remove('open'));
+    });
+  </script>
+
+</body>
+</html>
